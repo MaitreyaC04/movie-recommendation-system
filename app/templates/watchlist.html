@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mx-auto p-6">
+  <h2 class="text-3xl font-bold mb-6 text-indigo-700">My Watchlist</h2>
+  {% if movies %}
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      {% for movie in movies %}
+      <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition cursor-pointer movie-card"
+           data-imdb="{{ movie.imdb_id }}">
+        <img src="{{ movie.poster }}" alt="{{ movie.title }}" class="w-full h-64 object-cover">
+        <div class="p-4">
+          <h3 class="text-lg font-semibold text-gray-900 truncate">{{ movie.title }}</h3>
+          <p class="text-sm text-gray-500">{{ movie.year or "N/A" }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-gray-600">No movies in your watchlist yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

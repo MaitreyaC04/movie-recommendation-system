@@ -1,0 +1,16 @@
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div>
+      {% for category, message in messages %}
+        <div style="padding:10px; margin:5px; border-radius:5px; 
+             {% if category == 'success' %} background-color:#d4edda; color:#155724;
+             {% elif category == 'danger' %} background-color:#f8d7da; color:#721c24;
+             {% endif %}">
+          {{ message }}
+          <button onclick="this.parentElement.style.display='none'" 
+                  style="float:right; border:none; background:none; cursor:pointer;">&times;</button>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}

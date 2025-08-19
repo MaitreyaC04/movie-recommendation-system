@@ -1,0 +1,69 @@
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="movieModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content" style="color:#000000">
+      <div class="modal-header">
+        <h5 class="modal-title" id="movieTitle">Movie Title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body d-flex">
+        <img id="moviePoster" src="" alt="Poster" class="me-3" style="width:200px;height:auto;">
+        <div>
+          <p><strong>Year:</strong> <span id="movieYear"></span></p>
+          <p><strong>Genre:</strong> <span id="movieGenre"></span></p>
+          <p><strong>Director:</strong> <span id="movieDirector"></span></p>
+
+          <p><strong>Actors:</strong> <span id="movieActors"></span></p>
+          <p><strong>Language:</strong> <span id="movieLanguage"></span></p>
+          <p><strong>Country:</strong> <span id="movieCountry"></span></p>
+
+          <p><strong>Runtime:</strong> <span id="movieRuntime"></span></p>
+          <p><strong>Plot:</strong> <span id="moviePlot"></span></p>
+          <p><strong>Source:</strong> <span id="movieSource"></span></p>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-primary" id="watchlistBtn">➕ Add to Watchlist</button>
+        <button class="btn btn-success" id="watchedBtn">✔ Already Watched</button>
+      </div>
+
+      <!-- Extra modal for rating/review when user clicks "Already Watched" -->
+      <div class="modal fade" id="reviewModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Rate & Review</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+              <form id="reviewForm">
+                <div class="mb-3">
+                  <label for="likeDislike" class="form-label">Did you like it?</label>
+                  <select id="likeDislike" class="form-select">
+                    <option value="like">👍 Like</option>
+                    <option value="dislike">👎 Dislike</option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label for="rating" class="form-label">Rating (1-10)</label>
+                  <input type="number" class="form-control" id="rating" min="1" max="10" required />
+                </div>
+
+                <div class="mb-3">
+                  <label for="review" class="form-label">Review</label>
+                  <textarea class="form-control" id="review" rows="3"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-success">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

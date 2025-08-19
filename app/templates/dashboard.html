@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="h-screen bg-gray-100">
+  {% include '_navbar.html' %}
+  
+  <div class="text-center">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div id="flash-messages" class="mb-4 space-y-2">
+          {% for category, message in messages %}
+            <div class="flash-item flex justify-between items-center px-4 py-2 rounded-lg shadow-md opacity-0 transform transition duration-300 -translate-y-2
+                        {% if category == 'success' %} bg-green-100 text-green-800 border border-green-300
+                        {% elif category == 'error' %} bg-red-100 text-red-800 border border-red-300
+                        {% elif category == 'info' %} bg-blue-100 text-blue-800 border border-blue-300
+                        {% endif %}"
+                data-timeout="4000">
+              <span>{{ message }}</span>
+              <button type="button" class="dismiss-btn ml-4 text-lg font-bold focus:outline-none" aria-label="Dismiss">&times;</button>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <h1 class="text-4xl font-bold text-gray-800">Welcome to your Dashboard 🎉</h1>
+    <p class="text-gray-600 mt-4">You have successfully logged in.</p>
+
+    <div class="grid grid-cols-2 gap-4 m-8">
+      <!-- Get New Recommendations -->
+      <a href="{{ url_for('auth.get_recommendations') }}" 
+        class="bg-red-600 text-white py-3 px-5 rounded-xl shadow-md hover:bg-red-700 text-center">
+        Get New Recommendations
+      </a>
+
+      <!-- View Past Recommendations -->
+      <a href="{{ url_for('auth.past_recommendations') }}" 
+        class="bg-yellow-600 text-white py-3 px-5 rounded-xl shadow-md hover:bg-yellow-700 text-center">
+        View Past Recommendations
+      </a>
+
+      <a href="{{ url_for('auth.view_watchlist') }}"
+        class="bg-blue-600 text-white py-3 px-5 rounded-xl shadow-md hover:bg-blue-700 text-center">
+        View My Watchlist
+      </a>
+
+      <a href="{{ url_for('auth.view_watched') }}"
+        class="bg-green-600 text-white py-3 px-5 rounded-xl shadow-md hover:bg-green-700 text-center">
+        View Watched Movies
+      </a>
+    </div>
+  </div>
+  <!-- Load the script at the end of body -->
+  <script src="{{ url_for('static', filename='js/flash.js') }}"></script>
+</body>
+</html>

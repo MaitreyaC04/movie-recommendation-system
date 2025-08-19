@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preferences</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    {% include "_navbar.html" %}
+
+    <div class="max-w-3xl mx-auto bg-white shadow-md rounded-2xl p-8" 
+        x-data="preferencesForm({{ preferences.languages if preferences and preferences.languages else [] | tojson }},
+                                {{ preferences.genres if preferences and preferences.genres else [] | tojson }})">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6">Edit Preferences</h2>
+
+        <!-- Flash messages -->
+        {% include '_messages.html' %}
+
+        <form action="{{ url_for('auth.preferences') }}" method="POST" class="space-y-6">
+
+            <!-- Languages -->
+            <div>
+                <label class="block font-medium text-gray-700 mb-3">Preferred Languages</label>
+                <div class="flex flex-wrap gap-3">
+                    {% for lang in languages %}
+                    <!-- <label class="flex items-center space-x-2">
+                        <input type="checkbox" name="languages" value="{{ lang }}"
+                            {% if lang in preferences.languages %}checked{% endif %}
+                            class="w-4 h-4 text-yellow-400 border-gray-300 rounded">
+                        <span>{{ lang }}</span>
+                    </label> -->
+                    <button type="button" 
+                            @click="toggleSelection('languages', '{{ lang }}')" 
+                            :class="selected.languages.includes('{{ lang }}') 
+                                ? 'bg-yellow-500 text-white' 
+                                : 'bg-gray-200 text-gray-700'"
+                            class="px-4 py-2 rounded-full text-sm font-medium shadow-md transition flex items-center gap-2">
+                        
+                        <span>{{ lang }}</span>
+                        <span x-show="selected.languages.includes('{{ lang }}')" class="text-xs">✓</span>
+                    </button>
+                    {% endfor %}
+                </div>
+                <input type="hidden" name="languages" :value="selected.languages.join(',')">
+            </div>
+
+            <!-- Genres -->
+            <div>
+                <label class="block font-medium text-gray-700 mb-3">Favorite Genres</label>
+                <div class="flex flex-wrap gap-3">
+                    {% for genre in genres %}
+                    <!-- <label class="flex items-center space-x-2">
+                        <input type="checkbox" name="genres" value="{{ genre }}"
+                            {% if genre in preferences.genres %}checked{% endif %}
+                            class="w-4 h-4 text-yellow-400 border-gray-300 rounded">
+                        <span>{{ genre }}</span>
+                    </label> -->
+                    <button type="button" 
+                            @click="toggleSelection('genres', '{{ genre }}')" 
+                            :class="selected.genres.includes('{{ genre }}') 
+                                ? 'bg-yellow-500 text-white' 
+                                : 'bg-gray-200 text-gray-700'"
+                            class="px-4 py-2 rounded-full text-sm font-medium shadow-md transition flex items-center gap-2">
+                        
+                        <span>{{ genre }}</span>
+                        <span x-show="selected.genres.includes('{{ genre }}')" class="text-xs">✓</span>
+                    </button>
+                    {% endfor %}
+                </div>
+                <input type="hidden" name="genres" :value="selected.genres.join(',')">
+            </div>
+
+            <!-- Submit -->
+            <div class="text-right">
+                <button type="submit" class="px-6 py-2 bg-yellow-400 rounded-lg text-gray-900 font-semibold hover:bg-yellow-500 transition">
+                    Update Preferences
+                </button>
+            </div>
+        </form>
+    </div>
+    <!-- Alpine.js -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script>
+    function preferencesForm(preloadedLanguages, preloadedGenres) {
+        return {
+            selected: { 
+                languages: preloadedLanguages || [],
+                genres: preloadedGenres || []
+            },
+            toggleSelection(type, value) {
+                if (this.selected[type].includes(value)) {
+                    this.selected[type] = this.selected[type].filter(v => v !== value);
+                } 
+                else {
+                    this.selected[type].push(value);
+                }
+            }
+        }
+    }
+    </script>
+</body>
+</html>

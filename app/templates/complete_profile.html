@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Complete Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/validation.js') }}"></script>
+</head>
+<body>
+<nav style="display:flex; justify-content:space-between; 
+            align-items:center; padding:10px 20px; 
+            background-color:#222; color:white;">
+    
+    <!-- Left: Logo -->
+    <div style="font-size:32px; font-weight:bold; color:#ffcc00">
+        CineMatch
+    </div>
+    
+    <!-- Right: Logout -->
+    <div>
+        <a href="{{ url_for('auth.logout') }}" 
+           style="background:red; color:white; text-decoration:none; 
+                  padding:8px 15px; border:1px solid white; 
+                  border-radius:5px;">
+            Logout
+        </a>
+    </div>
+</nav>
+
+{% include '_messages.html' %}
+
+<div class="container">
+    <h2>Complete Your Profile</h2>
+
+    <form id="profileForm" method="POST" action="{{ url_for('auth.complete_profile') }}" enctype="multipart/form-data">
+        <label>First Name</label>
+        <input type="text" id="first_name" name="first_name">
+        <span class="error" id="first_name-error"></span>
+
+        <label>Last Name</label>
+        <input type="text" id="last_name" name="last_name">
+        <span class="error" id="last_name-error"></span>
+
+        <label>Date of Birth</label>
+        <input type="date" id="dob" name="dob">
+        <span class="error" id="dob-error"></span>
+
+        <label>Gender</label>
+        <select id="gender" name="gender">
+            <option value="">Select</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+        <span class="error" id="gender-error"></span>
+
+        <label>Country</label>
+        <input type="text" id="country" name="country">
+        <span class="error" id="country-error"></span>
+
+        <label>State</label>
+        <input type="text" id="state" name="state">
+        <span class="error" id="state-error"></span>
+
+        <label>City/Town</label>
+        <input type="text" id="city" name="city">
+        <span class="error" id="city-error"></span>
+
+        <label>Occupation (Optional)</label>
+        <input type="text" id="occupation" name="occupation">
+
+        <label>Streaming Platforms</label>
+        <br>
+        <input type="checkbox" name="streaming_platforms" value="Netflix"> Netflix
+        <input type="checkbox" name="streaming_platforms" value="Prime"> Prime
+        <input type="checkbox" name="streaming_platforms" value="Hotstar"> Hotstar
+        <input type="checkbox" name="streaming_platforms" value="Disney+"> Disney+
+        <input type="checkbox" name="streaming_platforms" value="Hulu"> Hulu
+        <input type="checkbox" name="streaming_platforms" value="Apple TV+"> Apple TV+
+        <input type="checkbox" name="streaming_platforms" value="HBO Max"> HBO Max
+        <br>
+        <span class="error" id="platform-error"></span>
+
+        <label>Bio</label>
+        <textarea name="bio" placeholder="Write a short bio..."></textarea>
+
+        <label>Profile Picture</label>
+        <input type="file" name="profile_picture" accept="image/*">
+
+        <button type="submit">Save & Continue</button>
+    </form>
+</div>
+</body>
+</html>

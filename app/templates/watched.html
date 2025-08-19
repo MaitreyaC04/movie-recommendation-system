@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mx-auto p-6">
+  <h2 class="text-3xl font-bold mb-6 text-green-700">Watched Movies</h2>
+  {% if movies %}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for movie in movies %}
+      <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition cursor-pointer movie-card"
+           data-imdb="{{ movie.imdb_id }}">
+        <img src="{{ movie.poster }}" alt="{{ movie.title }}" class="w-full h-64 object-cover">
+        <div class="p-4">
+          <h3 class="text-lg font-semibold text-gray-900">{{ movie.title }}</h3>
+          <p class="text-sm text-gray-500">{{ movie.year or "N/A" }}</p>
+          <p class="mt-2"><span class="font-semibold">👍/👎:</span> {{ movie.like_dislike }}</p>
+          <p><span class="font-semibold">⭐ Rating:</span> {{ movie.rating or "N/A" }}/10</p>
+          <p><span class="font-semibold">📝 Review:</span> {{ movie.review or "No review" }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-gray-600">You haven’t reviewed any movies yet.</p>
+  {% endif %}
+</div>
+{% endblock %}
